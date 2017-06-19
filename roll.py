@@ -7,8 +7,8 @@ import operator
 
 def fix_dice_string(source):
     '''
-    Перебираем строку, приводим ее в годный вид
-    Возвращаем функцию с годным списком
+    :param Перебираем строку, приводим ее в годный вид
+    :return функцию с годным списком
     '''
     def fix_now(string):
         string.replace(' ', '')
@@ -29,6 +29,10 @@ def fix_dice_string(source):
     return fix_now
 
 def roll(func):
+    '''
+    :param получаем функцию с исправленной строкой из fix_dice_string
+    :return возвращаем функцию со списком, с наброшенными значениями
+    '''
     def roll_now(roll_list):
         result_list = []
         for i in roll_list:
@@ -49,6 +53,10 @@ def roll(func):
     return roll_now
 
 def fix_list(func):
+    '''
+    :param забираем функцию с выроленными значениями из roll
+    :return: возвращаем списк с операндами
+    '''
     def fix_now(dice_string):
         new_string = []
         check_exp = None
@@ -69,6 +77,10 @@ def fix_list(func):
 @roll
 @fix_list
 def roll_result(result_list):
+    '''
+    :param получаем полностью готовый список для польской записи
+    :return: готовую сумму, выполненную по правилам польской записи
+    '''
     operators = {'+': operator.add, '-': operator.sub}
     result = 0
     current_operator = None
@@ -82,5 +94,5 @@ def roll_result(result_list):
             current_operator = operators.get(i)
     return result
 
-dice_string = "1d20 +d6-1d2+d100-10"
-print(roll_result(dice_string))
+dice_string = "1d20 +d6-1d2+d100-10" ## тестовая строка
+print(roll_result(dice_string)) ## тестовая строка
